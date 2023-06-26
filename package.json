@@ -9,9 +9,10 @@
   "scripts": {
     "build": "webpack",
     "test": "jest",
+    "postpublish": "chmod +x dist/index.js",
     "dev": "./dist/index.js"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Mutation testing tool for circom",
   "main": "index.js",
   "repository": "git@github.com:aviggiano/circom-mutator.git",
