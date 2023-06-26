@@ -7,13 +7,14 @@ import mutators from "./mutators";
 interface Argv {
   _: string[];
   outDir: string;
+  cli?: boolean;
 }
 
 const argv = yargs(hideBin(process.argv)).argv as unknown as Argv;
 
-const { _: files, outDir = "mutants" } = argv;
+const { _: files, outDir = "mutants", cli } = argv;
 
-if (files) {
+if (cli) {
   (async () => {
     for (const mutator of mutators) {
       for (const file of files) {
