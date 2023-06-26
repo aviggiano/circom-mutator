@@ -26,7 +26,7 @@ const { _: files, outDir = "mutants", temperature } = argv;
       if (mutated) {
         const mutatedFile = file
           .replace(/\/(?=[^\/]*$)/, `/${outDir}/`)
-          .replace(".circom", `.mutated.${mutator.id}.circom`);
+          .replace(".circom", `.mutated.${mutator.id}-${temperature}.circom`);
 
         const dirname = path.dirname(mutatedFile);
         await fs.mkdir(dirname, { recursive: true });

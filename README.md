@@ -21,3 +21,9 @@ npm install --dev circom-mutator
 # or
 yarn add -D circom-mutator
 ```
+
+# Parameters
+
+| Parameter | Description |
+| --- | --- |
+| `temperature` | Determines how much change the mutator should apply to the source code. Passing 1 means all occurrences matching a mutator will be changed. Passing 0.5 means only half of the occurences will be changed |
