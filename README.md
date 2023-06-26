@@ -8,7 +8,7 @@ This is a tool based on source-based rewrite of circom code lines for mutation g
 
 Currently, it only uses regular expressions, treating code as text. Future versions might include transpiling the circom circuits into an intermediate representation for better analyses.
 
-Most of the mutators are derived from [0xPARC's ZK Bug Tracker](https://github.com/0xPARC/zk-bug-tracker#dark-forest-1) and [yAcademy ZK Fellowship audits](https://github.com/zBlock-1). Please submit a pull request if you would like to include a new test case or a "trophy" if you were able to find any bugs in the wild with this tool.
+Most of the mutators are derived from [0xPARC's ZK Bug Tracker](https://github.com/0xPARC/zk-bug-tracker#dark-forest-1), [circomspect analysis passes](https://github.com/trailofbits/circomspect/blob/main/doc/analysis_passes.md) and [yAcademy ZK Fellowship audits](https://github.com/zBlock-1). Please submit a pull request if you would like to include a new test case or a "trophy" if you were able to find any bugs in the wild with this tool.
 
 # Usage
 

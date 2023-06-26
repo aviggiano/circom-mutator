@@ -9,14 +9,13 @@ const mutator: Mutator = {
     const answer = [];
 
     const regex = /Secp256k1AddComplete/g;
-    const offset = "Secp256k1AddComplete".length;
 
     let result;
     while ((result = regex.exec(circuit)) !== null) {
       const mutant =
         circuit.substring(0, result.index) +
         "Secp256k1AddIncomplete" +
-        circuit.substring(result.index + offset, circuit.length);
+        circuit.substring(result.index + result[0].length, circuit.length);
       answer.push(mutant);
     }
     return answer;

@@ -13,14 +13,13 @@ const mutator: Mutator = {
     for (let i = 0; i < constraints.length; i++) {
       const constraint = constraints[i];
       const substitution = substitutions[i];
-      const offset = ".==".length;
 
       let result;
       while ((result = constraint.exec(circuit)) !== null) {
         const mutant =
           circuit.substring(0, result.index) +
           substitution +
-          circuit.substring(result.index + offset, circuit.length);
+          circuit.substring(result.index + result[0].length, circuit.length);
         answer.push(mutant);
       }
     }
