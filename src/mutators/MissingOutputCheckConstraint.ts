@@ -8,7 +8,7 @@ const mutator: Mutator = {
   mutate: (circuit: string) => {
     const answer = [];
 
-    const regex = /.*.*===.*;/gi;
+    const regex = /.*===.*;/gi;
 
     let result;
     while ((result = regex.exec(circuit)) !== null) {

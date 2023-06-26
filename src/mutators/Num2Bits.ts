@@ -8,16 +8,27 @@ const mutator: Mutator = {
   mutate: (circuit: string) => {
     const answer = [];
 
-    const constraint = /.*<==.*Num2Bits.*/g;
+    const constraintAssignment = /.*<==.*Num2Bits.*/g;
 
     let result;
-    while ((result = constraint.exec(circuit)) !== null) {
+    while ((result = constraintAssignment.exec(circuit)) !== null) {
       const mutant =
         circuit.substring(0, result.index) +
         "" +
         circuit.substring(result.index + result[0].length, circuit.length);
       answer.push(mutant);
     }
+
+    const constraintComponent = /([\w\[\]]+)\s*=\s*Num2Bits\(.+\);/g;
+    while ((result = constraintComponent.exec(circuit)) !== null) {
+      const variable = result[1];
+      const mutant = circuit.replace(
+        new RegExp(`.*${variable.replace(/\[\w\]/g, "")}.*`, "g"),
+        ""
+      );
+      answer.push(mutant);
+    }
+
     return answer;
   },
 };
