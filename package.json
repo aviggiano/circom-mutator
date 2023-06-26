@@ -11,10 +11,11 @@
     "test": "jest",
     "dev": "./dist/index.js"
   },
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Mutation testing tool for circom",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "dist/index.js",
   "bin": {
     "circom-mutator": "dist/index.js"
   },
