@@ -8,8 +8,10 @@ describe("Secp256k1Add", () => {
       path.join(__dirname, "../circuits/eff_ecdsa.circom")
     );
     expect(circuit.toString()).not.toContain("Secp256k1AddIncomplete");
-    expect(Secp256k1Add.mutate(circuit.toString())).toContain(
-      "Secp256k1AddIncomplete"
-    );
+    const mutants = Secp256k1Add.mutate(circuit.toString());
+    expect(mutants.length).toBeGreaterThan(0);
+    mutants.forEach((mutant) => {
+      expect(mutant).toContain("Secp256k1AddIncomplete");
+    });
   });
 });

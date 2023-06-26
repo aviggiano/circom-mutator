@@ -11,26 +11,27 @@ const mutators: Mutator[] = [Secp256k1Add, UnusedPublicInputsOptimizedOut];
 interface Argv {
   _: string[];
   outDir: string;
-  temperature?: number;
 }
 
 const argv = yargs(hideBin(process.argv)).argv as unknown as Argv;
 
-const { _: files, outDir = "mutants", temperature } = argv;
+const { _: files, outDir = "mutants" } = argv;
 
 (async () => {
   for (const mutator of mutators) {
     for (const file of files) {
       const circuit = await fs.readFile(file, "utf-8");
-      const mutated = mutator.mutate(circuit, temperature);
-      if (mutated) {
+      const mutants = mutator.mutate(circuit);
+      let i = 0;
+      for (const mutant of mutants) {
+        i++;
         const mutatedFile = file
           .replace(/\/(?=[^\/]*$)/, `/${outDir}/`)
-          .replace(".circom", `.mutated.${mutator.id}-${temperature}.circom`);
+          .replace(".circom", `.mutated.${mutator.id}-${i}.circom`);
 
         const dirname = path.dirname(mutatedFile);
         await fs.mkdir(dirname, { recursive: true });
-        await fs.writeFile(mutatedFile, mutated);
+        await fs.writeFile(mutatedFile, mutant);
       }
     }
   }
