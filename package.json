@@ -9,20 +9,21 @@
   "scripts": {
     "build": "webpack",
     "test": "jest",
+    "prepublish": "chmod +x dist/index.js",
     "dev": "./dist/index.js"
   },
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Mutation testing tool for circom",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": {
+    "circom-mutator": "dist/index.js"
+  },
   "repository": "git@github.com:aviggiano/circom-mutator.git",
   "author": "Antonio Guilherme Ferreira Viggiano <agfviggiano@gmail.com>",
   "license": "MIT",
   "files": [
     "dist"
   ],
-  "bin": {
-    "circom-mutator": "dist/index.js"
-  },
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
