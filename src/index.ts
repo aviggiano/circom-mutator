@@ -35,6 +35,4 @@ if (files) {
   })();
 }
 
-export default {
-  mutators,
-};
+export { mutators };
