@@ -12,13 +12,9 @@ Most of the mutators are derived from [0xPARC's ZK Bug Tracker](https://github.c
 
 # Usage
 
-Run directly through the command line to see the mutants or install it into your project and use the API on your tests.
+Install it into your project and use the API on your tests.
 
 ```
-# command line
-npx circom-mutator <files>
-
-# test setup
 npm install --dev circom-mutator
 # or
 yarn add -D circom-mutator
