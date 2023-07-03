@@ -39,11 +39,15 @@ export default function testMutations({ description, filename, test }: Params) {
       it(`Apply mutator ${mutator.id} and verify if tests still pass`, async () => {
         const mutants = mutator.mutate(original);
         for (const mutant of mutants) {
-          await fs.writeFile(dependencyFilename, mutant);
+          await fs.writeFile(`${dependencyFilename}.mutant`, mutant);
+          const diff = await exec(
+            `diff ${dependencyFilename}.mutant ${dependencyFilename}`
+          );
+          await fs.rename(`${dependencyFilename}.mutant`, dependencyFilename);
           try {
             await test();
           } catch (err) {
-            console.log(await exec(`git diff ${dependencyFilename}`));
+            console.log(diff);
             throw err;
           }
         }
