@@ -12,9 +12,10 @@ interface Params {
 function diff(a: string, b: string): Promise<string> {
   return new Promise((resolve, reject) => {
     cp.exec(`diff ${a} ${b}`, (error, stdout, stderr) => {
+      console.log(error, stdout, stderr);
       if (error) {
         if (error.code === 1) {
-          resolve(stderr);
+          resolve(stdout);
         } else {
           reject(error);
         }
