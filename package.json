@@ -8,17 +8,17 @@
   ],
   "scripts": {
     "webpack": "webpack",
-    "build": "tsc",
+    "build": "webpack && tsc",
     "test": "jest",
     "dev": "./dist/index.js"
   },
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Mutation testing tool for circom",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.js",
   "bin": {
-    "circom-mutator": "dist/index.js"
+    "circom-mutator": "dist/bin.js"
   },
   "repository": "git@github.com:aviggiano/circom-mutator.git",
   "author": "Antonio Guilherme Ferreira Viggiano <agfviggiano@gmail.com>",

@@ -5,12 +5,12 @@ const {
   NODE_ENV = 'production',
 } = process.env;
 module.exports = {
-  entry: './src/index.ts',
+  entry: './src/bin.ts',
   mode: NODE_ENV,
   target: 'node',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js'
+    filename: 'bin.js'
   },
   resolve: {
     extensions: ['.ts', '.js'],
