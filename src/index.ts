@@ -3,6 +3,7 @@ import { hideBin } from "yargs/helpers";
 import fs from "fs/promises";
 import path from "path";
 import mutators from "./mutators";
+import testMutations from "./tester";
 
 interface Argv {
   _: string[];
@@ -36,4 +37,4 @@ if (cli) {
   })();
 }
 
-export { mutators };
+export { mutators, testMutations };
