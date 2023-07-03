@@ -9,11 +9,15 @@ interface Params {
   test: () => Promise<void>;
 }
 
-function exec(cmd: string): Promise<string> {
+function diff(a: string, b: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    cp.exec(cmd, (error, stdout, stderr) => {
+    cp.exec(`diff ${a} ${b}`, (error, stdout, stderr) => {
       if (error) {
-        reject(error);
+        if (error.code === 1) {
+          resolve(stdout);
+        } else {
+          reject(error);
+        }
       } else {
         resolve(stdout);
       }
@@ -36,19 +40,20 @@ export default function testMutations({ description, filename, test }: Params) {
       await fs.writeFile(dependencyFilename, original);
     });
     for (const mutator of mutators) {
-      it(`Apply mutator ${mutator.id} and verify if tests still pass`, async () => {
+      it(`${mutator.title} (${mutator.id})`, async () => {
         const mutants = mutator.mutate(original);
         for (const mutant of mutants) {
           await fs.writeFile(`${dependencyFilename}.mutant`, mutant);
-          const diff = await exec(
-            `diff ${dependencyFilename} ${dependencyFilename}.mutant`
+          const difference = await diff(
+            dependencyFilename,
+            `${dependencyFilename}.mutant`
           );
           await fs.writeFile(`${dependencyFilename}`, mutant);
           await fs.rm(`${dependencyFilename}.mutant`);
           try {
             await test();
           } catch (err) {
-            console.log(diff);
+            console.log(difference);
             throw err;
           }
         }
