@@ -1,40 +1,6 @@
 import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
-import fs from "fs/promises";
-import path from "path";
 import mutators from "./mutators";
 import testMutations from "./tester";
-
-interface Argv {
-  _: string[];
-  outDir: string;
-  cli?: boolean;
-}
-
-const argv = yargs(hideBin(process.argv)).argv as unknown as Argv;
-
-const { _: files, outDir = "mutants", cli } = argv;
-
-if (cli) {
-  (async () => {
-    for (const mutator of mutators) {
-      for (const file of files) {
-        const circuit = await fs.readFile(file, "utf-8");
-        const mutants = mutator.mutate(circuit);
-        let i = 0;
-        for (const mutant of mutants) {
-          i++;
-          const mutatedFile = file
-            .replace(/\/(?=[^\/]*$)/, `/${outDir}/`)
-            .replace(".circom", `.mutated.${mutator.id}-${i}.circom`);
-
-          const dirname = path.dirname(mutatedFile);
-          await fs.mkdir(dirname, { recursive: true });
-          await fs.writeFile(mutatedFile, mutant);
-        }
-      }
-    }
-  })();
-}
 
 export { mutators, testMutations };

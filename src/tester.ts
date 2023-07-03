@@ -27,10 +27,9 @@ export default function testMutations({ description, filename, test }: Params) {
     let original: string;
     beforeAll(async () => {
       const file = await fs.readFile(filename, "utf-8");
-      const match = file.match(/include.*"(.*)"/);
-      const main = match![1];
-      const mainDir = filename.split("/")[filename.split("/").length - 2];
-      dependencyFilename = path.join(__dirname, "./", mainDir, "/", main);
+      const main = file.match(/include.*"(.*)"/)![1];
+      const mainDir = filename.match(/(.*)\//)![1];
+      dependencyFilename = path.join(mainDir, main);
       original = await fs.readFile(dependencyFilename, "utf-8");
     });
     afterEach(async () => {
