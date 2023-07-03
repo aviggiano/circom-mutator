@@ -12,7 +12,7 @@
     "test": "jest",
     "dev": "./dist/index.js"
   },
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Mutation testing tool for circom",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
