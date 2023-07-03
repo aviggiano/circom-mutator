@@ -14,7 +14,7 @@ function diff(a: string, b: string): Promise<string> {
     cp.exec(`diff ${a} ${b}`, (error, stdout, stderr) => {
       if (error) {
         if (error.code === 1) {
-          resolve(stdout);
+          resolve(stderr);
         } else {
           reject(error);
         }
