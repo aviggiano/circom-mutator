@@ -12,7 +12,6 @@ interface Params {
 function diff(a: string, b: string): Promise<string> {
   return new Promise((resolve, reject) => {
     cp.exec(`diff ${a} ${b}`, (error, stdout, stderr) => {
-      console.log(error, stdout, stderr);
       if (error) {
         if (error.code === 1) {
           resolve(stdout);
@@ -41,7 +40,7 @@ export default function testMutations({ description, filename, test }: Params) {
       await fs.writeFile(dependencyFilename, original);
     });
     for (const mutator of mutators) {
-      it(`${mutator.title} (${mutator.id})`, async () => {
+      it(`[mutation] ${mutator.title} (${mutator.id})`, async () => {
         const mutants = mutator.mutate(original);
         for (const mutant of mutants) {
           await fs.writeFile(`${dependencyFilename}.mutant`, mutant);
@@ -54,6 +53,7 @@ export default function testMutations({ description, filename, test }: Params) {
           try {
             await test();
           } catch (err) {
+            console.log(`(${mutator.id})`);
             console.log(difference);
             throw err;
           }
