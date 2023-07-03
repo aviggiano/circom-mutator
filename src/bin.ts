@@ -14,6 +14,11 @@ const argv = yargs(hideBin(process.argv)).argv as unknown as Argv;
 const { _: files, outDir = "mutants" } = argv;
 
 (async () => {
+  console.log(
+    `[circom-mutator] creating mutants of '${files.join(
+      ","
+    )}' and saving to '${outDir}'`
+  );
   for (const mutator of mutators) {
     for (const file of files) {
       const circuit = await fs.readFile(file, "utf-8");
@@ -21,17 +26,17 @@ const { _: files, outDir = "mutants" } = argv;
       let i = 0;
       for (const mutant of mutants) {
         i++;
+        const name = `${mutator.id}-${i.toString().padStart(2, "0")}`;
         const mutatedFile = file
           .replace(/\/(?=[^\/]*$)/, `/${outDir}/`)
-          .replace(
-            ".circom",
-            `.mutated.${mutator.id}-${i.toString().padStart(2, "0")}.circom`
-          );
+          .replace(".circom", `.mutated.${name}.circom`);
 
         const dirname = path.dirname(mutatedFile);
         await fs.mkdir(dirname, { recursive: true });
+        console.log(`[circom-mutator] creating mutant ${name}`);
         await fs.writeFile(mutatedFile, mutant);
       }
     }
   }
+  console.log(`[circom-mutator] done`);
 })();

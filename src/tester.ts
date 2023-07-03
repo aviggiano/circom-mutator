@@ -48,13 +48,13 @@ export default function testMutations({ description, filename, test }: Params) {
             dependencyFilename,
             `${dependencyFilename}.mutant`
           );
+          console.log(`(${mutator.id})`);
+          console.log(difference);
           await fs.writeFile(`${dependencyFilename}`, mutant);
           await fs.rm(`${dependencyFilename}.mutant`);
           try {
             await test();
           } catch (err) {
-            console.log(`(${mutator.id})`);
-            console.log(difference);
             throw err;
           }
         }
