@@ -20,7 +20,17 @@ Contributions are welcomed. If you wish to include a new test case or if you've 
 
 # Usage
 
-You can integrate `circom-mutator` into your project and leverage its API in your tests. 
+You can either use `circom-mutator` as a standalone CLI or integrate it into your project and leverage its API in your tests. 
+
+## CLI
+
+```
+npx circom-mutator <files> [--out-dir <directory>]
+```
+
+This will generate all possible mutants from the provided input file.
+
+## Test integration
 
 1. Install the package using npm or yarn:
 
