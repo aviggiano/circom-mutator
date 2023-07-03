@@ -14,6 +14,7 @@ const argv = yargs(hideBin(process.argv)).argv as unknown as Argv;
 const { _: files, outDir = "mutants" } = argv;
 
 (async () => {
+  console.log(`[circom-mutator] start`);
   console.log(
     `[circom-mutator] creating mutants of '${files.join(
       ","

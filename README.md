@@ -74,3 +74,13 @@ testMutations({
   }
 });
 ```
+
+This will output the diff between the mutants and the original circuit as well as the test results. A fail means the mutated circuit was still able to pass the test, which is not desireable.
+
+# False positives
+
+Please note that this tool may generate numerous false positives. Not all circuits will check for every possible constraint, as some are expected to be implemented at the application layer.
+
+For instance, certain circuits may permit an attacker to create fake witnesses by randomly selecting edge cases (such as zero point, points at infinity, or additions with p & -p). These circuits will expect app developers to perform these verifications.
+
+Nevertheless, it remains important to verify that failures detected by `circom-mutator` are indeed false positives, rather than a result of insufficient test coverage.
