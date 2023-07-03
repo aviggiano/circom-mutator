@@ -41,9 +41,10 @@ export default function testMutations({ description, filename, test }: Params) {
         for (const mutant of mutants) {
           await fs.writeFile(`${dependencyFilename}.mutant`, mutant);
           const diff = await exec(
-            `diff ${dependencyFilename}.mutant ${dependencyFilename}`
+            `diff ${dependencyFilename} ${dependencyFilename}.mutant`
           );
-          await fs.rename(`${dependencyFilename}.mutant`, dependencyFilename);
+          await fs.writeFile(`${dependencyFilename}`, mutant);
+          await fs.rm(`${dependencyFilename}.mutant`);
           try {
             await test();
           } catch (err) {
