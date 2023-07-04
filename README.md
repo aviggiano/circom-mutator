@@ -32,7 +32,7 @@ This will generate all possible mutants from the provided input file.
 
 ## Test integration
 
-1. Install the package using npm or yarn:
+Install the package using npm or yarn:
 
 ```
 npm install --dev circom-mutator
